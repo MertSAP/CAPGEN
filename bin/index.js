@@ -4,7 +4,7 @@ const TemplateGenerator = require('./TemplateGenerator.js')
 const DirectoryGenerator = require('./DirectoryGenerator.js')
 const options = yargs
   .usage('Usage: -f <loadfile>')
-  .option('f', { alias: 'loadfile', describe: 'Load File', type: 'string', demandOption: false })
+  .option('f', { alias: 'loadfile', describe: 'Load File', type: 'string', demandOption: true })
   .option('p', { alias: 'project', describe: 'Files Only', type: 'boolean', demandOption: false, default: false })
   .option('r', { alias: 'rootEntity', describe: 'Root Entity(Fiori)', type: 'string', demandOption: false, default: false })
   .argv
