@@ -29,5 +29,6 @@ Generate a Project with a Fiori Application with Root Node Travel:
 capgen -f loadTemplate/loadTemplate_TravelService.txt -r Travel
 ```
 Generate a Files only
+```
 capgen -f loadTemplate/loadTemplate_TravelService.txt -p
-
+```
