@@ -1,0 +1,18 @@
+{
+  "name": "capgen",
+  "version": "1.0.0",
+  "description": "CAP Generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matt Brightmanb",
+  "license": "ISC",
+  "dependencies": {
+    "cds": "^0.2.0",
+    "yargs": "^17.7.2"
+  },
+  "bin": {
+    "capgen": "./bin/index.js"
+  }
+}

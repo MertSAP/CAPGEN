@@ -1,0 +1,135 @@
+{   "DefaultOutputPath" :"",
+    "InputPath" : "../assets/",
+    "Templates": [
+        {
+            "InputTemplate" : "schema_cds.ts",
+            "OutputPath": "/db/",
+            "OutputFileName": "schema.cds",
+            "DeleteFile":""
+        },
+         {
+            "InputTemplate" : "common_cds.ts",
+            "OutputPath": "/db/",
+            "OutputFileName": "common.cds",
+            "DeleteFile":""
+        },
+        {
+            "InputTemplate" : "i18n_properties.ts",
+            "OutputPath": "/_i18n/",
+            "OutputFileName": "i18n.properties",
+            "DeleteFile":""
+        },
+        {
+            "InputTemplate" : "labels_cds.ts",
+            "OutputPath": "/app/",
+            "OutputFileName": "labels.cds",
+            "DeleteFile":""
+        },
+        {
+            "InputTemplate" : "service_cds.ts",
+            "OutputPath": "/srv/",
+            "OutputFileName": "{{ServiceTechnicalNameLower}}-service.cds",
+            "DeleteFile":"/srv/default.txt"
+        },
+        {
+            "InputTemplate" : "service_js.ts",
+            "OutputPath": "/srv/",
+            "OutputFileName": "{{ServiceTechnicalNameLower}}-service.js",
+            "DeleteFile":""
+        }, 
+        {
+            "InputTemplate" : "xs-security_json.ts",
+            "OutputPath": "/",
+            "OutputFileName": "xs-security.json",
+            "DeleteFile":"",
+            "CustomHandler":"xs-security"
+        }, 
+        {
+            "InputTemplate" : "service-auth_cds.ts",
+            "OutputPath": "/srv/",
+            "OutputFileName": "{{ServiceTechnicalNameLower}}-service-auth.cds",
+            "DeleteFile":"",
+            "CustomHandler":"xs-security"
+        },
+        {
+            "InputTemplate" : "cdsrc_json.ts",
+            "OutputPath": "/",
+            "OutputFileName": ".cdsrc.json",
+            "DeleteFile":"",
+            "CustomHandler":"xs-security"
+        },
+        {
+            "InputTemplate" : "index_html.ts",
+            "OutputPath": "/app/{{ServiceTechnicalNameLower}}/webapp/",
+            "OutputFileName": "index.html",
+            "DeleteFile":""
+        },
+        {
+            "InputTemplate" : "capabilities_cds.ts",
+            "OutputPath": "/app/{{ServiceTechnicalNameLower}}/",
+            "OutputFileName": "capabilities.cds",
+            "DeleteFile":""
+        },
+        
+        {
+            "InputTemplate" : "value-helps_cds.ts",
+            "OutputPath": "/app/",
+            "OutputFileName": "value-helps.cds",
+            "DeleteFile":""
+        },
+        {
+            "InputTemplate" : "services_cds.ts",
+            "OutputPath": "/app/",
+            "OutputFileName": "services.cds",
+            "DeleteFile":""
+        },
+        {
+            "InputTemplate" : "annotations_cds.ts",
+            "OutputPath": "/app/{{ServiceTechnicalNameLower}}/",
+            "OutputFileName": "annotations.cds",
+            "DeleteFile":""
+        },
+        {
+            "InputTemplate" : "component_js.ts",
+            "OutputPath": "/app/{{ServiceTechnicalNameLower}}/webapp/",
+            "OutputFileName": "component.js",
+            "DeleteFile":""
+        }, 
+        {
+            "InputTemplate" : "manifest_json.ts",
+            "OutputPath": "/app/{{ServiceTechnicalNameLower}}/webapp/",
+            "OutputFileName": "manifest.json",
+            "DeleteFile":""
+        },
+        {
+            "InputTemplate" : "datafiles_csv.ts",
+            "OutputPath": "/db/data/",
+            "OutputFileName": "*",
+            "DeleteFile":"",
+            "CustomHandler":"DataFiles"
+        }
+        ,
+        {
+            "InputTemplate" : "master-data_cds.ts",
+            "OutputPath": "/db/",
+            "OutputFileName": "master-data.cds",
+            "DeleteFile":"",
+            "CustomHandler":"MasterData"
+        },
+        {
+            "InputTemplate" : "/data/sap.common-Countries.csv",
+            "OutputPath": "/db/data/",
+            "OutputFileName": "sap.common-Countries.csv",
+            "DeleteFile":"",
+            "CustomHandler":"CountryType"
+        },
+        {
+            "InputTemplate" : "/data/sap.common-Currencies.csv",
+            "OutputPath": "/db/data/",
+            "OutputFileName": "sap.common-Currencies.csv",
+            "DeleteFile":"",
+            "CustomHandler":"CurrencyType"
+        }
+    ]
+
+}

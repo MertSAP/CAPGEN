@@ -1,0 +1,1 @@
+{{#to_Field}}{{#FieldisKey}}{{FieldTechnicalName}};{{/FieldisKey}}{{/to_Field}}{{#to_Field}}{{^FieldisKey}}{{FieldTechnicalName}}{{#FieldAssocationField}}_{{FieldAssocationField}}{{/FieldAssocationField}};{{/FieldisKey}}{{/to_Field}}{{#EntityParentRelationships}}to_{{ParentEntityTechnicalName}}_{{KeyFieldTechnicalName}};{{/EntityParentRelationships}}
