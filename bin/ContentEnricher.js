@@ -14,30 +14,30 @@ module.exports = class ContentEnricher {
     this.setObjectPages()
     this.generateManifestData()
     this.setServiceEntities()
-    //this.setEntityChildrenFlag()
     this.sortFieldsandFacets()
     this.renameAssociations()
     this.enrichValueHelp()
     this.enrichRoles()
     this.addTemplateFields(this.templateData.Services)
     this.enhanceListAndObjectPage()
-    this.saveToFile()
+    // this.saveToFile()
     return this.templateData
   }
 
-  setServiceEntities() {
+  setServiceEntities () {
     for (const entityRow of this.templateData.Services[0].to_Entity) {
-      entityRow.DisplayService = false;
+      entityRow.DisplayService = false
 
-      if(entityRow.to_Action.length > 0) {
+      if (entityRow.to_Action.length > 0) {
         entityRow.DisplayService = true
       }
 
-      if(entityRow.EntityParentRelationships.length === 0 && !entityRow.EntityMasterData) {
+      if (entityRow.EntityParentRelationships.length === 0 && !entityRow.EntityMasterData) {
         entityRow.DisplayService = true
       }
     }
   }
+
   /*
     Save the enriched content to a file
   */
@@ -103,16 +103,15 @@ module.exports = class ContentEnricher {
     }
   }
 
-
   enrichValueHelp () {
     for (const entityRow of this.templateData.Services[0].to_Entity) {
       for (const valueHelpRow of entityRow.to_ValueHelp) {
-        let vhEntity = this.templateData.Services[0].to_Entity.find(item => {
+        const vhEntity = this.templateData.Services[0].to_Entity.find(item => {
           return item.EntityTechnicalName === valueHelpRow.ValueHelpEntity.EntityTechnicalName
         })
         valueHelpRow.ValueHelpDispayFields = []
-        for(const fieldRow of vhEntity.to_Field) {
-          if(fieldRow.FieldLineDisplay && !fieldRow.FieldisKey) {
+        for (const fieldRow of vhEntity.to_Field) {
+          if (fieldRow.FieldLineDisplay && !fieldRow.FieldisKey) {
             valueHelpRow.ValueHelpDispayFields.push(fieldRow)
           }
         }
@@ -121,16 +120,15 @@ module.exports = class ContentEnricher {
   }
 
   /*
-    Dive down into the json and if a array is detected add first and last booleans. 
+    Dive down into the json and if a array is detected add first and last booleans.
     THis is mainly to get rid of extra commas. The is recursive and generic
   */
   addTemplateFields (Collection) {
     for (const item of Collection) {
       item.isLast = false
-      if(item.isFirst === undefined) {
+      if (item.isFirst === undefined) {
         item.isFirst = false
       }
-     
 
       Object.entries(item).forEach(([key, value]) => {
         if (Array.isArray(value)) {
@@ -149,7 +147,7 @@ module.exports = class ContentEnricher {
     return Collection
   }
   /*
-    This is needed to overwrite the isLast flag as in the manfest file we want a comma after the last list 
+    This is needed to overwrite the isLast flag as in the manfest file we want a comma after the last list
     page and before the first objectpage
   */
 
@@ -183,6 +181,7 @@ module.exports = class ContentEnricher {
       entityRow.to_Facet.sort(this.sortFacets())
     }
   }
+
   /*
     Need to know if an entity is Root for Fiori app
   */
@@ -193,7 +192,7 @@ module.exports = class ContentEnricher {
   }
 
   /*
-    To trace an entity back to the root is needed for manifest.json 
+    To trace an entity back to the root is needed for manifest.json
   */
   tracePath () {
     for (const entityRow of this.templateData.Services[0].to_Entity) {
@@ -204,6 +203,7 @@ module.exports = class ContentEnricher {
 
     this.templateData.Services[0].to_Entity.sort(this.sortEntities())
   }
+
   /*
     Recurresivly go down the tree to trace it
   */
@@ -212,6 +212,10 @@ module.exports = class ContentEnricher {
       // step 1 - The path to root is the same as the parents. So copy it
       entity.PathToRoot = Object.assign(entity.PathToRoot, parent.PathToRoot)
       // step 2 - add the parent to the path
+      if (this.isCircular(entity.PathToRoot, parent.EntityTechnicalName)) {
+        const outputRelationship = this.generatePathToRootString(entity.PathToRoot)
+        throw new Error('Circular relationship detected: ' + outputRelationship + ' -> ' + parent.EntityTechnicalName)
+      }
       entity.PathToRoot.push({ EntityTechnicalName: parent.EntityTechnicalName })
     }
 
@@ -223,6 +227,21 @@ module.exports = class ContentEnricher {
       })
       this.findPath(childEntity, entity)
     }
+  }
+
+  generatePathToRootString (PathToRoot) {
+    let outputString = ''
+    for (const item of PathToRoot) {
+      outputString = outputString + ' -> ' + item.EntityTechnicalName
+    }
+    return outputString
+  }
+
+  isCircular (PathToRoot, EntityTechnicalName) {
+    const item = PathToRoot.find(item => {
+      return item.EntityTechnicalName === EntityTechnicalName
+    })
+    return item !== undefined
   }
 
   setEntityChildrenFlag () {
@@ -278,7 +297,7 @@ module.exports = class ContentEnricher {
           return item.EntityTechnicalName === childRow.EntityTechnicalName
         }
       )
-      // let navigationLast = false;
+
       if ((childIndex + 1) === entity.EntityChildRelationships.length) {
         // navigationLast = true;
       }
@@ -366,31 +385,30 @@ module.exports = class ContentEnricher {
   }
 
   enrichFieldAssociations () {
-    this.templateData.Services[0].HasCountryType = false;
-    this.templateData.Services[0].HasCurrencyType = false;
-    this.templateData.Services[0].HasMasterData = false;
+    this.templateData.Services[0].HasCountryType = false
+    this.templateData.Services[0].HasCurrencyType = false
+    this.templateData.Services[0].HasMasterData = false
 
     for (const entityRow of this.templateData.Services[0].to_Entity) {
       entityRow.PathToRoot = []
 
-      if(entityRow.EntityMasterData) {
-        this.templateData.Services[0].HasMasterData = true;
+      if (entityRow.EntityMasterData) {
+        this.templateData.Services[0].HasMasterData = true
       }
       for (const fieldRow of entityRow.to_Field) {
         if (fieldRow.FieldType === 'Currency') {
           fieldRow.FieldAssocationField = 'code'
-          this.templateData.Services[0].HasCurrencyType = true;
+          this.templateData.Services[0].HasCurrencyType = true
         }
 
         if (fieldRow.FieldType === 'Country') {
           fieldRow.FieldAssocationField = 'code'
-          this.templateData.Services[0].HasCountryType = true;;
+          this.templateData.Services[0].HasCountryType = true
         }
 
-        if(fieldRow.InputTypeCode === 'AutoIncrement') {
+        if (fieldRow.InputTypeCode === 'AutoIncrement') {
           fieldRow.FieldAutoIncrement = true
           entityRow.HasAutoIncrement = true
-
         }
       }
       for (const valueHelpRow of entityRow.to_ValueHelp) {
@@ -430,11 +448,8 @@ module.exports = class ContentEnricher {
         })
         authMap.set(roleAuthRow.AuthEntity.EntityTechnicalName, Roles)
       }
-      // roleRow.Last = false;
     }
-    if (this.templateData.Services[0].to_ServiceRole.length > 0) {
-      // this.templateData.Services[0].to_ServiceRole[this.templateData.Services[0].to_ServiceRole.length - 1].Last = true;
-    }
+   
     this.templateData.Services[0].AuthbyEntity = []
 
     for (const [key, value] of authMap) {
@@ -445,13 +460,9 @@ module.exports = class ContentEnricher {
       this.templateData.Services[0].AuthbyEntity.push(authRole)
     }
 
-    // this.templateData.Services[0].HasRoles = false;
     for (const entityRow of this.templateData.Services[0].to_Entity) {
-      if (authMap.get(entityRow.EntityTechnicalName) === undefined) {
-        // entityRow.EntityHasAuths = false;
-      } else {
-        // entityRow.EntityHasAuths = true;
-        // this.templateData.Services[0].HasRoles = true;
+      if (authMap.get(entityRow.EntityTechnicalName) !== undefined) {
+
         entityRow.EntityRoles = authMap.get(entityRow.EntityTechnicalName)
       }
     }

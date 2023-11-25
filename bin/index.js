@@ -10,6 +10,18 @@ const options = yargs
   .argv
 
 const templateGenerator = new TemplateGenerator(options.loadfile, options.project, options.rootEntity)
+let messages = templateGenerator.validate();
+if(messages.length > 0) {
+  console.log(messages[0]);
+  return;
+}
+try {
+  templateGenerator.enhance();
+} catch({ name, message })  {
+  console.log(message);
+  return;
+}
+
 const directoryGenerator = new DirectoryGenerator(templateGenerator.getServiceName(), options.project)
 directoryGenerator.generate()
 templateGenerator.generate()

@@ -16,15 +16,41 @@ module.exports = class TemplateGenerator {
     this.templateData = JSON.parse(
       fs.readFileSync(path.join(path.resolve('./'), loadFileName), 'utf-8')
     )
-    this.enrichInput(RootEntityTechnicalName)
 
+    this.RootEntityTechnicalName = RootEntityTechnicalName
+
+    this.filesOnly = filesOnly
+    // enahnce the input json
+  }
+
+  enhance () {
+    this.enrichInput(this.RootEntityTechnicalName)
     this.templateConfig = Mustache.render(
       this.templateConfig,
       this.templateData.Services[0]
     )
     this.templateConfig = JSON.parse(this.templateConfig)
-    this.filesOnly = filesOnly
-    // enahnce the input json
+  }
+
+  validate () {
+    const messages = []
+    const roots = []
+    let foundRoot = false
+    if (this.RootEntityTechnicalName !== '') {
+      for (const entity of this.templateData.Services[0].to_Entity) {
+        if (entity.EntityParentRelationships.length === 0) {
+          roots.push(entity.EntityTechnicalName)
+          if (entity.EntityTechnicalName === this.RootEntityTechnicalName) {
+            foundRoot = true
+          }
+        }
+      }
+
+      if (!foundRoot) {
+        messages.push('Please enter a valid root. Options: ' + roots.toString())
+      }
+    }
+    return messages
   }
 
   getServiceName () {
@@ -97,10 +123,10 @@ module.exports = class TemplateGenerator {
           this.generateHelper(templateRow, this.templateData)
         }
         break
-        case 'CountryType':
-          if (this.templateData.Services[0].HasCountryType) {
-            this.generateHelper(templateRow, this.templateData)
-          }
+      case 'CountryType':
+        if (this.templateData.Services[0].HasCountryType) {
+          this.generateHelper(templateRow, this.templateData)
+        }
         break
       default:
         break
