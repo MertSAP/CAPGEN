@@ -2,11 +2,12 @@
   "name": "capgen",
   "version": "1.0.0",
   "description": "CAP Generator",
+  "repository": "https://github.com/MertSAP/CAPGEN",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Matt Brightmanb",
+  "author": "Matt Brightman",
   "license": "ISC",
   "dependencies": {
     "cds": "^0.2.0",
