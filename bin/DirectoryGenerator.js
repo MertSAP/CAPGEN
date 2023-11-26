@@ -12,10 +12,10 @@ module.exports = class DirectoryGenerator {
     if (this.FilesOnly) return
     if (this.createDirectory('app')) return
     if (this.createProject()) return
-    if (this.createDirectory('app/' + this.ServiceName + '/')) return
+    if (this.createDirectory(path.join('app', this.ServiceName))) return
     if (this.createDirectory('_i18n')) return
-    if (this.createDirectory('app/' + this.ServiceName + '/webapp')) return
-    if (this.createDirectory('db/data')) return
+    if (this.createDirectory(path.join('app',this.ServiceName,'webapp'))) return
+    if (this.createDirectory(path.join('db','data'))) return
   }
 
   createProject () {
@@ -28,12 +28,14 @@ module.exports = class DirectoryGenerator {
         console.log(`stderr: ${stderr}`)
         return false
       }
+      
       return true
     })
   }
 
-  createDirectory (directory) {
-    fs.mkdir(path.join(path.resolve('./'), directory), (err) => {
+   createDirectory (directory) {
+   
+    fs.mkdirSync(path.join(path.resolve('.'), directory), (err) => {
       if (err) {
         console.log(err)
         return false
