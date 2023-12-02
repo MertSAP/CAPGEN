@@ -27,6 +27,8 @@ Place template File into tempalteFiles Directory
 Generate a Project with a Fiori Application with Root Node Travel:
 ```
 capgen -f loadTemplate/loadTemplate_TravelService.txt -r Travel
+npm install
+cds watch
 ```
 Generate a Files only
 ```
