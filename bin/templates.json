@@ -90,7 +90,7 @@
             "DeleteFile":""
         },
         {
-            "InputTemplate" : "component_js.ts",
+            "InputTemplate" : "Component_js.ts",
             "OutputPath": "/app/{{ServiceTechnicalName}}/webapp/",
             "OutputFileName": "Component.js",
             "DeleteFile":""
