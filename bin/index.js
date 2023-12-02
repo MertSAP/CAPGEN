@@ -22,6 +22,6 @@ try {
   return;
 }
 
-const directoryGenerator = new DirectoryGenerator(templateGenerator.getServiceName(), options.project)
+const directoryGenerator = new DirectoryGenerator(templateGenerator.getServiceName().toLowerCase(), options.project)
 directoryGenerator.generate()
 templateGenerator.generate()

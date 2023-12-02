@@ -60,13 +60,13 @@
         },
         {
             "InputTemplate" : "index_html.ts",
-            "OutputPath": "/app/{{ServiceTechnicalName}}/webapp/",
+            "OutputPath": "/app/{{ServiceTechnicalNameLower}}/webapp/",
             "OutputFileName": "index.html",
             "DeleteFile":""
         },
         {
             "InputTemplate" : "capabilities_cds.ts",
-            "OutputPath": "/app/{{ServiceTechnicalName}}/",
+            "OutputPath": "/app/{{ServiceTechnicalNameLower}}/",
             "OutputFileName": "capabilities.cds",
             "DeleteFile":""
         },
@@ -85,19 +85,19 @@
         },
         {
             "InputTemplate" : "annotations_cds.ts",
-            "OutputPath": "/app/{{ServiceTechnicalName}}/",
+            "OutputPath": "/app/{{ServiceTechnicalNameLower}}/",
             "OutputFileName": "annotations.cds",
             "DeleteFile":""
         },
         {
             "InputTemplate" : "component_js.ts",
-            "OutputPath": "/app/{{ServiceTechnicalName}}/webapp/",
+            "OutputPath": "/app/{{ServiceTechnicalNameLower}}/webapp/",
             "OutputFileName": "component.js",
             "DeleteFile":""
         }, 
         {
             "InputTemplate" : "manifest_json.ts",
-            "OutputPath": "/app/{{ServiceTechnicalName}}/webapp/",
+            "OutputPath": "/app/{{ServiceTechnicalNameLower}}/webapp/",
             "OutputFileName": "manifest.json",
             "DeleteFile":""
         },
