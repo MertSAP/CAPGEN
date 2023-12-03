@@ -12,8 +12,8 @@ annotate <%ServiceTechnicalName%>Service.<%EntityTechnicalName%> with @UI : {
     <%/to_Action%>
   ],
   HeaderInfo : {
-    TypeName       : '{i18n><%EntityName%>}',
-    TypeNamePlural : '{i18n><%EntityNamePlural%>}',
+    TypeName       : '{i18n><%EntityTechnicalName%>-EntityName}',
+    TypeNamePlural : '{i18n><%EntityTechnicalName%>-EntityNamePlural}',
    <%#EntityTitleDisplay%>
     Title          : {
       $Type : 'UI.DataField',
@@ -56,7 +56,7 @@ annotate <%ServiceTechnicalName%>Service.<%EntityTechnicalName%> with @UI : {
     ID     : '<%EntityTechnicalName%>',
     Facets : [
       <%#to_Facet%>
-      {  // travel details
+      {  // facet <%FacetTechnicalName%>
         $Type  : 'UI.ReferenceFacet',
         ID     : '<%FacetTechnicalName%>',
         Target : '@UI.FieldGroup#<%FacetTechnicalName%>',
@@ -66,13 +66,13 @@ annotate <%ServiceTechnicalName%>Service.<%EntityTechnicalName%> with @UI : {
       ]
   }<%#HasEntityChildRelationships%><%#EntityChildRelationships%>
   , 
-  {  // booking list
+  {  // <%ChildEntityTechnicalName%> list
   
     
     $Type  : 'UI.ReferenceFacet',
     ID     : '<%ChildEntityTechnicalName%>',
     Target : 'to_<%ChildEntityTechnicalName%>/@UI.PresentationVariant',
-    Label  : '{i18n><%ChildEntityTechnicalName%>}'
+    Label  : '{i18n><%ChildEntityTechnicalName%>-EntityName}'
    
   } <%/EntityChildRelationships%><%/HasEntityChildRelationships%>],
   <%#to_Facet%>

@@ -1,5 +1,8 @@
 
+GeneralInformation = General Information
 {{#to_Entity}}
+{{EntityTechnicalName}}-EntityName = {{EntityName}}
+{{EntityTechnicalName}}-EntityNamePlural = {{EntityNamePlural}}
     {{#to_Field}}
 {{EntityTechnicalName}}-{{FieldTechnicalName}} = {{FieldLabel}}
     {{/to_Field}}
@@ -12,4 +15,5 @@ facet-{{FacetTechnicalName}} = {{FacetLabel}}
 {{#to_valueHelp}}
 {{EntityTechnicalName}}-{{ValueHelpTechnicalName}} = {{ValueHelpLabel}}
 {{/to_valueHelp}}
+
 {{/to_Entity}}
