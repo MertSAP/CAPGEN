@@ -1,8 +1,3 @@
-appTitle=zzzzApp Title
-
-#YDES: Application description
-appDescription=zzzzA Fiori application.
-
 {{#to_Entity}}
     {{#to_Field}}
 {{EntityTechnicalName}}-{{FieldTechnicalName}} = {{FieldLabel}}

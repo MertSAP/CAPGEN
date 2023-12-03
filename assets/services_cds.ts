@@ -1,2 +1,2 @@
-using from './{{ServiceTechnicalNameLower}}/annotations';
-using from './{{ServiceTechnicalNameLower}}/capabilities';
+using from './{{ServiceTechnicalName}}/annotations';
+using from './{{ServiceTechnicalName}}/capabilities';
