@@ -3,10 +3,10 @@ CAPGEN is a Node JS CLI that takes an input JSON file from AppTemplater and gene
 
 ### Installation
 ```
-mkrdir capgen
-cd capgen
 git clone https://github.com/MertSAP/CAPGEN.git
+cd CAPGEN
 npm install
+npm install -g
 ```
 
 ### Execution
