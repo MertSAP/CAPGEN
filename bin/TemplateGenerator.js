@@ -135,12 +135,14 @@ module.exports = class TemplateGenerator {
 
   generateDataFiles (templateRow) {
     for (const entity of this.templateData.Services[0].to_Entity) {
-      templateRow.OutputFileName =
-        this.templateData.Services[0].ServiceNamespace +
-        '-' +
-        entity.EntityTechnicalName +
-        '.csv'
-      this.generateHelper(templateRow, entity)
+      if(entity.EntityGenerateDataFile) {
+        templateRow.OutputFileName =
+          this.templateData.Services[0].ServiceNamespace +
+          '-' +
+          entity.EntityTechnicalName +
+          '.csv'
+        this.generateHelper(templateRow, entity)
+      }
     }
   }
 }
