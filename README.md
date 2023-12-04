@@ -35,4 +35,4 @@ Generate a Files only
 capgen -f loadTemplate/loadTemplate_TravelService.txt -p
 ```
 ### Limitations
-- The tool currently runs CDS INIT command to generate the CAP Project Structure and some key files(Package.json), however in this version I have not managed to use the standard generators to create the UI5 Files. This means that I only create the minimum set of files, and the versions in the manifest.json file could be out of date. It is strongly recommended that you review the UI5 Files generated
+- The tool currently runs CDS INIT command to generate the CAP Project Structure and some key files(Package.json), however in this version I have not managed to use the standard generators to create the UI5 Files. This means that CAPGEN only creates the minimum set of files needed, and the versions in the manifest.json file could be out of date. It is strongly recommended that you review the UI5 Files generated
