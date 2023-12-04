@@ -1,6 +1,8 @@
 ## CAPGEN
 CAPGEN is a Node.js CLI that takes an input JSON file from AppTemplater and generates a working SAP CAP Application(Node.js)
 
+### Demo
+https://www.youtube.com/watch?v=mF02MeVATZw
 ### Getting Started
 ```
 git clone https://github.com/MertSAP/CAPGEN.git
