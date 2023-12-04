@@ -1,7 +1,7 @@
 ## CAPGEN
-CAPGEN is a Node JS CLI that takes an input JSON file from AppTemplater and generates a working SAP CAP Application
+CAPGEN is a Node JS CLI that takes an input JSON file from AppTemplater and generates a working SAP CAP Application(Node.js)
 
-### Installation
+### Getting Started
 ```
 git clone https://github.com/MertSAP/CAPGEN.git
 cd CAPGEN
@@ -13,9 +13,9 @@ npm install -g
 ```
 mkdir <ProjectName>
 cd <ProjectName>
-mkdir templateFiles
+mkdir loadTemplate
 
-Place template File into tempalteFiles Directory
+Place template File into loadTemplate Directory
 ```
 
 #### Flags:
@@ -34,3 +34,5 @@ Generate a Files only
 ```
 capgen -f loadTemplate/loadTemplate_TravelService.txt -p
 ```
+### Limitations
+- The tool currently runs CDS INIT command to generate the CAP Project Structure and some key files(Package.json), however in this version I have not managed to use the standard generators to create the UI5 Files. This means that I only create the minimum set of files, and the versions in the manifest.json file could be out of date. It is strongly recommended that you review the UI5 Files generated
