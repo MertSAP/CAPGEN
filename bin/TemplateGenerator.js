@@ -5,7 +5,7 @@ const Template = require('./Template.js')
 const Mustache = require('mustache')
 module.exports = class TemplateGenerator {
   templates = 'templates.json'
-  constructor (loadFileName, filesOnly, RootEntityTechnicalName) {
+  constructor (loadFileName, filesOnly, RootEntityTechnicalName, updateMode) {
     // load the config file with all the templates to render
     this.templateConfig = fs.readFileSync(
       path.join(__dirname, this.templates),
@@ -18,7 +18,7 @@ module.exports = class TemplateGenerator {
     )
 
     this.RootEntityTechnicalName = RootEntityTechnicalName
-
+    this.updateMode = updateMode
     this.filesOnly = filesOnly
     // enahnce the input json
   }
@@ -50,9 +50,54 @@ module.exports = class TemplateGenerator {
         messages.push('Please enter a valid root. Options: ' + roots.toString())
       }
     }
+    const message = this.checkDirectoryContents();
+    if(message !== '') {
+      messages.push(message)
+    }
     return messages
   }
 
+  checkDirectoryContents() {
+    const dbDir = path.join(path.resolve('.'), 'db');
+    const packageFile = path.join(path.resolve('.'), 'package.json');
+    const schemaCDSFile = path.join(path.resolve('.'), 'schema.cds');
+    const dbDirExists =  fs.existsSync(dbDir);
+    const packageFileExists = fs.existsSync(packageFile);
+    const schemaCDSFileExists = fs.existsSync(schemaCDSFile);
+   
+    let message = '';
+
+    if(!this.updateMode && schemaCDSFileExists) {
+      //Trying to run create when files exist already.
+      message = 'Please run in update mode -u';
+      return message;
+    }
+    if(!this.filesOnly && !packageFileExists && this.updateMode) {
+      //Project Mode and Package.json doesn't exist. This means we shouldn't be using update Mode
+      message = 'Project not detected. Please run without -u first';
+      return message;
+    }
+
+    if(!this.filesOnly && packageFileExists && !this.updateMode) {
+      //Project mode and Package File exists, yet not running in update mode. We should be running in update mode
+      message = 'A project already exists please run in update mode(-u)'
+      return message;
+    }
+
+    if(this.filesOnly && (packageFileExists || dbDirExists)) {
+      if(this.updateMode) {
+        //Running in files only mode but a project exists. Throw an error. Should run in project mode
+        message = 'Project detected. Please run without -p'
+        return message;
+      } else {
+        //should be running in project update mode
+        message = 'Project detected. Please run with -p and in update mode -u'
+        return message;
+      }
+    }
+    return message;
+  }
+  
   getServiceName () {
     return this.templateData.Services[0].ServiceTechnicalName
   }
