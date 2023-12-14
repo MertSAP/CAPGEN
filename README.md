@@ -22,7 +22,7 @@ Place template File into tempalteFiles Directory
   - f Relative path to template file - Mandatory
   - p Generates files, no proeject or directory structure - Optional
   - r EntityTechnicalName for the Root Node for the Fiori Application - Option
-
+   -u Update Mode. To be used to regenerate files if CAPGEN has already executed but the template file has been changed
 #### Examples
 Generate a Project with a Fiori Application with Root Node Travel:
 ```
@@ -30,7 +30,18 @@ capgen -f loadTemplate/loadTemplate_TravelService.txt -r Travel
 npm install
 cds watch
 ```
+
+Updates an existing project created from CAPGEN(If there are updates to the template file)
+```
+capgen -f loadTemplate/loadTemplate_TravelService.txt -r Travel -u
+```
+
 Generate a Files only
 ```
 capgen -f loadTemplate/loadTemplate_TravelService.txt -p
+```
+
+Updates an existing project created from CAPGEN
+```
+capgen -f loadTemplate/loadTemplate_TravelService.txt -p -u
 ```
