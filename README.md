@@ -1,7 +1,9 @@
 ## CAPGEN
-CAPGEN is a Node JS CLI that takes an input JSON file from AppTemplater and generates a working SAP CAP Application
+CAPGEN is a Node.js CLI that takes an input JSON file from AppTemplater and generates a working SAP CAP Application(Node.js)
 
-### Installation
+### Demo
+https://www.youtube.com/watch?v=mF02MeVATZw
+### Getting Started
 ```
 git clone https://github.com/MertSAP/CAPGEN.git
 cd CAPGEN
@@ -13,14 +15,14 @@ npm install -g
 ```
 mkdir <ProjectName>
 cd <ProjectName>
-mkdir templateFiles
+mkdir loadTemplate
 
-Place template File into tempalteFiles Directory
+Place template File into loadTemplate Directory
 ```
 
 #### Flags:
   - f Relative path to template file - Mandatory
-  - p Generates files, no proeject or directory structure - Optional
+  - p Generates files, no project or directory structure - Optional
   - r EntityTechnicalName for the Root Node for the Fiori Application - Option
    -u Update Mode. To be used to regenerate files if CAPGEN has already executed but the template file has been changed
 #### Examples
@@ -39,9 +41,4 @@ capgen -f loadTemplate/loadTemplate_TravelService.txt -r Travel -u
 Generate a Files only
 ```
 capgen -f loadTemplate/loadTemplate_TravelService.txt -p
-```
-
-Updates an existing project created from CAPGEN
-```
-capgen -f loadTemplate/loadTemplate_TravelService.txt -p -u
 ```
