@@ -58,44 +58,53 @@ module.exports = class TemplateGenerator {
   }
 
   checkDirectoryContents() {
-    const dbDir = path.join(path.resolve('.'), 'db');
-    const packageFile = path.join(path.resolve('.'), 'package.json');
-    const schemaCDSFile = path.join(path.resolve('.'), 'schema.cds');
-    const dbDirExists =  fs.existsSync(dbDir);
-    const packageFileExists = fs.existsSync(packageFile);
-    const schemaCDSFileExists = fs.existsSync(schemaCDSFile);
-   
-    let message = '';
+    const dbDir = path.join(path.resolve('.'), 'db')
+    const packageFile = path.join(path.resolve('.'), 'package.json')
+    const schemaCDSFile = path.join(path.resolve('.'), 'schema.cds')
+    const dbDirExists =  fs.existsSync(dbDir)
+    const packageFileExists = fs.existsSync(packageFile)
+    const schemaCDSFileExists = fs.existsSync(schemaCDSFile)
+    
+    if(this.filesOnly) {
+      //Check 1. For update mode: If its files only then the db dir shouldn't exist or the package.json file shouldn't exist
+      if(this.updateMode && (dbDirExists || packageFileExists)) {
+        return 'Project Detected. Please run without the -p flag'; //PASS
+      }
+    } else {  
+      //Check 2: For updade mode: A Project structure should already exist
+      if(this.updateMode && (!dbDirExists || !packageFileExists) && schemaCDSFileExists ) {
+        return 'Project not detected. Please run with the -p flag'; //PASS
+      }
+      const schemaCDSFile = path.join(path.resolve('db'), 'schema.cds')
+    }
+
 
     if(!this.updateMode && schemaCDSFileExists) {
       //Trying to run create when files exist already.
-      message = 'Please run in update mode -u';
-      return message;
-    }
-    if(!this.filesOnly && !packageFileExists && this.updateMode) {
-      //Project Mode and Package.json doesn't exist. This means we shouldn't be using update Mode
-      message = 'Project not detected. Please run without -u first';
-      return message;
+      return 'Please run in update mode -u' //pass
     }
 
+   
+    if(!this.filesOnly && this.updateMode && (!schemaCDSFileExists && !packageFileExists)) {
+      //Trying to run update when  when files don't exist
+      return 'Project not detected. Please run without -u first' //pass
+    }
+   
     if(!this.filesOnly && packageFileExists && !this.updateMode) {
       //Project mode and Package File exists, yet not running in update mode. We should be running in update mode
-      message = 'A project already exists please run in update mode(-u)'
-      return message;
+      return 'A project already exists. Please run in update mode(-u)' //pass
     }
 
     if(this.filesOnly && (packageFileExists || dbDirExists)) {
       if(this.updateMode) {
         //Running in files only mode but a project exists. Throw an error. Should run in project mode
-        message = 'Project detected. Please run without -p'
-        return message;
+        return 'Project detected. Please run without -p flag'
       } else {
         //should be running in project update mode
-        message = 'Project detected. Please run with -p and in update mode -u'
-        return message;
+        return 'Project detected. Please run without -p flag and in update mode -u' //pass
       }
     }
-    return message;
+    return '';
   }
   
   getServiceName () {
