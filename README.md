@@ -24,7 +24,7 @@ Place template File into loadTemplate Directory
   - f Relative path to template file - Mandatory
   - p Generates files, no project or directory structure - Optional
   - r EntityTechnicalName for the Root Node for the Fiori Application - Option
-   -u Update Mode. To be used to regenerate files if CAPGEN has already executed but the template file has been changed
+  - u Update Mode. To be used to regenerate files if CAPGEN has already executed but the template file has been changed
 #### Examples
 Generate a Project with a Fiori Application with Root Node Travel:
 ```
